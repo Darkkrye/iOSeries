@@ -6,5 +6,9 @@ target 'iOSeries' do
   use_frameworks!
 
   # Pods for iOSeries
+  pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON'
+  pod 'ColorMatchTabs', :git => 'https://github.com/Yalantis/ColorMatchTabs'
+  pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire'
+  pod 'SearchTextField', :git => 'https://github.com/apasccon/SearchTextField'
 
 end
