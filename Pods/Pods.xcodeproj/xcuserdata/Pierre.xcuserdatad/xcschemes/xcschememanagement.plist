@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Cosmos.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-iOSeries.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,7 +37,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>17A2B569206C97AFD664CA99DD68E5F8</key>
+		<key>2CC4201779114E96199A159EFA8C409C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2F0FE1E2A5B1EF15139E10A40F05CE94</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>785F4B0171F80115956AEF63534E26B3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -42,12 +57,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A9A873CCD8F89C94B1BA53A25FD8F2D9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EA82C769A0F0BB9D9B4AFF5862F52831</key>
+		<key>D25891F7E0297A643BA32F4E1921BCD0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

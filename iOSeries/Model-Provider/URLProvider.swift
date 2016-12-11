@@ -12,6 +12,7 @@ class URLProvider {
     
     static let searchURL = "http://api.betaseries.com/shows/search?title="
     static let getShowURL = "http://api.betaseries.com/shows/display?id="
+    static let getEpisodesURL = "http://api.betaseries.com/shows/episodes?id=26"
     
 }
 

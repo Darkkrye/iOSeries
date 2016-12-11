@@ -10,5 +10,6 @@ target 'iOSeries' do
   pod 'ColorMatchTabs', :git => 'https://github.com/Yalantis/ColorMatchTabs'
   pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire'
   pod 'SearchTextField', :git => 'https://github.com/apasccon/SearchTextField'
+  pod 'Cosmos', :git => 'https://github.com/marketplacer/Cosmos'
 
 end
