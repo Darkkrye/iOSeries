@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>ALAccordion.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,7 +42,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2CC4201779114E96199A159EFA8C409C</key>
+		<key>04E37D29D57DA2D26028509C18CD105A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -47,7 +52,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>785F4B0171F80115956AEF63534E26B3</key>
+		<key>8039A6CFC96F513BA3AFFD3CE9942F97</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,12 +62,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D25891F7E0297A643BA32F4E1921BCD0</key>
+		<key>D7663BAC12D495DD50DC443103A6A0E4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>F92DB32C184D16E1BCE31225C1E4CD61</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FAF78C196BA05B856703383044B4759C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

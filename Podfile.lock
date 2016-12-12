@@ -1,4 +1,5 @@
 PODS:
+  - ALAccordion (0.4.0)
   - Alamofire (4.2.0)
   - ColorMatchTabs (2.0)
   - Cosmos (7.0.0)
@@ -6,6 +7,7 @@ PODS:
   - SwiftyJSON (3.1.3)
 
 DEPENDENCIES:
+  - ALAccordion (from `https://github.com/Alliants/ALAccordion`)
   - Alamofire (from `https://github.com/Alamofire/Alamofire`)
   - ColorMatchTabs (from `https://github.com/Yalantis/ColorMatchTabs`)
   - Cosmos (from `https://github.com/marketplacer/Cosmos`)
@@ -13,6 +15,8 @@ DEPENDENCIES:
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON`)
 
 EXTERNAL SOURCES:
+  ALAccordion:
+    :git: https://github.com/Alliants/ALAccordion
   Alamofire:
     :git: https://github.com/Alamofire/Alamofire
   ColorMatchTabs:
@@ -25,6 +29,9 @@ EXTERNAL SOURCES:
     :git: https://github.com/SwiftyJSON/SwiftyJSON
 
 CHECKOUT OPTIONS:
+  ALAccordion:
+    :commit: f803b524535359f005e6e08f040df6d8b2fea933
+    :git: https://github.com/Alliants/ALAccordion
   Alamofire:
     :commit: 7a17b1d4b558a172d571a9d2b1cd81e190586027
     :git: https://github.com/Alamofire/Alamofire
@@ -42,12 +49,13 @@ CHECKOUT OPTIONS:
     :git: https://github.com/SwiftyJSON/SwiftyJSON
 
 SPEC CHECKSUMS:
+  ALAccordion: 23cb8e8761e4259bfb92638a0e0ed2ec820dc0eb
   Alamofire: 26d8877ec03b4e6e6cbfbf7c03924b4844a2d453
   ColorMatchTabs: d66f857e49d00d9fe956b930d0ac78f4b1172f54
   Cosmos: 2c8299147138758f6ebbb247cf1aeed77998bdf9
   SearchTextField: ad21ed0e0f0c7c19857c0fbd3d0205eaa0b805bf
   SwiftyJSON: b37a26c0a27587f13e8f223e0280e69c3be5d1d4
 
-PODFILE CHECKSUM: 97eb786e02853b21a92efb714a970dd2d1de9fa7
+PODFILE CHECKSUM: bfd94e0a68613082ddb38b6145617000b78ed659
 
 COCOAPODS: 1.1.1

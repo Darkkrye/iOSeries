@@ -26,11 +26,23 @@ class InfoDetailsTableViewCell: UITableViewCell {
     
     // MARK: - IBActions
     @IBAction func seenButtonTapped(_ sender: Any) {
-        
+        if let button: UIButton = sender as? UIButton {
+            if button.tag == 0 {
+                print("J'ai vu")
+            } else if button.tag == 1 {
+                print("Pas vu")
+            }
+        }
     }
     
     @IBAction func rappelButtonTapped(_ sender: Any) {
-        
+        if let button: UIButton = sender as? UIButton {
+            if button.tag == 0 {
+                print("Ajouter rappel")
+            } else if button.tag == 1 {
+                print("Supprimer rappel")
+            }
+        }
     }
     
     

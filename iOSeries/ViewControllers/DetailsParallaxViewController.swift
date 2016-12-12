@@ -37,6 +37,7 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
     var loadingView: UIView!
     
     var isAlreadyWatchedShow = false
+    var isScheduled = false
     
     // MARK: - IBOutlets
     @IBOutlet var scrollingHeaderView: KMScrollingHeaderView!
@@ -165,17 +166,26 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
                 
                 if show.show_alreadyWatched {
                     infoDetailsCell.seenButton.setTitle("Pas vu !", for: .normal)
+                    infoDetailsCell.seenButton.tag = 1
                     
                     // UI
                     infoDetailsCell.rappelButton.layer.borderColor = self.currentColor.cgColor
                     infoDetailsCell.rappelButton.backgroundColor = self.currentColor
                     infoDetailsCell.rappelButton.setTitleColor(UIColor.white, for: .normal)
+                    infoDetailsCell.rappelButton.tag = 0
                     
                     infoDetailsCell.seenButton.layer.borderColor = self.currentColor.cgColor
                     infoDetailsCell.seenButton.setTitleColor(self.currentColor, for: .normal)
                     infoDetailsCell.seenButton.backgroundColor = UIColor.white
+                    
+                    if self.isScheduled {
+                        infoDetailsCell.rappelButton.setTitle("Supprimer rappel", for: .normal)
+                        infoDetailsCell.rappelButton.tag = 1
+                    }
+                    
                 } else {
                     infoDetailsCell.seenButton.setTitle("J'ai vu !", for: .normal)
+                    infoDetailsCell.seenButton.tag = 0
                     
                     // UI
                     infoDetailsCell.seenButton.layer.borderColor = self.currentColor.cgColor
@@ -229,20 +239,21 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
                 
                 break
                 
-            /*case 4:
-                var conseilsCell: ConseilsTableViewCell! = tableView.dequeueReusableCellWithIdentifier("ConseilsTableViewCell") as? ConseilsTableViewCell
+            case 4:
+                var ratingCell: RatingTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "RatingTableViewCell") as? RatingTableViewCell
                 
-                if conseilsCell == nil {
-                    conseilsCell = ConseilsTableViewCell.conseilsCell()
+                if ratingCell == nil {
+                    ratingCell = RatingTableViewCell.ratingCell()
                 }
                 
-                conseilsCell.conseilsLabel.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla dictum neque ante, sed euismod ipsum aliquam et. Proin erat nulla, auctor eget convallis scelerisque, pulvinar eu tellus. Vestibulum molestie in turpis vitae convallis. Nunc tincidunt sapien non elit luctus, "
+                ratingCell.votesLabel.text = "\(show.show_noters)"
+                ratingCell.ratingCosmosView.rating = show.show_note
                 
-                cell = conseilsCell
+                cell = ratingCell
                 
                 break
                 
-            case 5:
+            /*case 5:
                 var ratingCell: RatingTableViewCell! = tableView.dequeueReusableCellWithIdentifier("RatingTableViewCell") as? RatingTableViewCell
                 
                 if ratingCell == nil {
@@ -308,15 +319,15 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
             break
             
         case 2:
-            height = 200
+            height = 300
             break
             
         case 3:
             height = 125
             break
             
-        case 5:
-            height = 60
+        case 4:
+            height = 65
             break
             
         case 6:

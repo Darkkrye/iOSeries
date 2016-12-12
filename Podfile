@@ -11,5 +11,6 @@ target 'iOSeries' do
   pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire'
   pod 'SearchTextField', :git => 'https://github.com/apasccon/SearchTextField'
   pod 'Cosmos', :git => 'https://github.com/marketplacer/Cosmos'
+  pod 'ALAccordion', :git => 'https://github.com/Alliants/ALAccordion'
 
 end

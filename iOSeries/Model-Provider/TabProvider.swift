@@ -14,22 +14,28 @@ class TabItemsProvider {
     static let items = {
         return [
             TabItem(
-                title: "Mes séries vues",
+                title: "Vues",
                 tintColor: UIColor.iOSeriesBlueColor,
                 normalImage: UIImage(named: "sttchecked")!,
                 highlightedImage: UIImage(named: "sttwhitechecked")!
             ),
             TabItem(
-                title: "Séries à regarder",
+                title: "A Voir",
                 tintColor: UIColor.iOSeriesGreenColor,
                 normalImage: UIImage(named: "stt")!,
                 highlightedImage: UIImage(named: "sttwhite")!
+            ),
+            TabItem(
+                title: "Programmées",
+                tintColor: UIColor.iOSeriesYellowColor,
+                normalImage: UIImage(named: "scheduled")!,
+                highlightedImage: UIImage(named: "scheduledwhite")!
             )
         ]
     }()
     
     static let viewControllers: [UIViewController] = {
-        return [WatchedSeriesTableViewController(), ToWatchSeriesTableViewController()]
+        return [WatchedSeriesTableViewController(), ToWatchSeriesTableViewController(), ScheduledSeriesTableViewController()]
     }()
     
 }
