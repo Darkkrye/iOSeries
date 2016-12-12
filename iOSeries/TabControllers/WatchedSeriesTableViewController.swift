@@ -10,6 +10,8 @@ import UIKit
 
 class WatchedSeriesTableViewController: UITableViewController {
     
+    var currentColor = UIColor.iOSeriesBlueColor
+    
     var shows = [Show]()
 
     override func viewDidLoad() {
@@ -25,7 +27,8 @@ class WatchedSeriesTableViewController: UITableViewController {
         self.tableView.register(UINib(nibName: "DefaultTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "DefaultCell")
         
         // Create fake serie
-        let show = Show(id: 26, title: "Dexter", desc: "Brillant expert scientifique du service médico-légal de la police de Miami, Dexter Morgan est spécialisé dans l'analyse de prélèvements sanguins. Mais voilà, Dexter cache un terrible secret : il est également tueur en série. Un serial killer pas comme les autres, avec sa propre vision de la justice.", seasonNumber: "8", episodeNumber: "100", genders: ["Crime", "Drama", "Mystery", "Suspense", "Thriller"], creationYear: "2006", network: "Showtime", status: "Ended", note: 4.57215, noters: 4345, imageShow: "http://www.betaseries.com/images/fonds/show/26_1362244322.jpg", imageBanner: "http://www.betaseries.com/images/fonds/banner/26_1362236173.jpg", imagePoster: "http://www.betaseries.com/images/fonds/poster/79349.jpg", url: "https://www.betaseries.com/serie/dexter", seasons: [Season]())
+        let show = Show(id: 2224, title: "Le Coeur A Ses Raisons", desc: "Le coeur a ses raisons est une palpitante parodie de feuilleton télévisé populaire contenant tous les clichés qui se rattachent au genre. On y propose un univers complètement éclaté ou sont poussés à l'extrême les intrigues amoureuses, les drames familiaux, les luttes de pouvoir, les trahisons, les complots, les histoires d'adultères et d'enfants illégitimes. Bref, là ou se joue le classique combat entre le bien et le mal.", seasonNumber: 3, episodeNumber: 39, genders: ["Comedy"], creationYear: "2005", network: "TVA", status: "Ended", note: 4.5114, noters: 88, imageShow: "http://www.betaseries.com/images/fonds/show/2224_1379364825.jpg", imageBanner: "http://www.betaseries.com/images/fonds/banner/2224_1362236212.jpg", imagePoster: "http://www.betaseries.com/images/fonds/poster/80741.jpg", url: "https://www.betaseries.com/serie/le-coeur-a-ses-raisons", seasons: [Season]())
+        show.show_alreadyWatched = true
         
         self.shows.append(show)
         self.tableView.reloadData()
@@ -56,8 +59,8 @@ class WatchedSeriesTableViewController: UITableViewController {
         let show = self.shows[indexPath.row]
         
         cell.showImageView.image = show.show_imageBanner
-        cell.showNameLabel.text = show.show_title
-        cell.showInfoLabel.text = "(\(show.show_creationYear)) - \(show.show_seasonNumber) saisons)"
+        cell.showNameLabel.text = "\(show.show_title) (\(show.show_creationYear))"
+        cell.showInfoLabel.text = "\(show.show_seasonNumber) saisons - \(show.show_episodeNumber) episodes"
         cell.showNoteCosmosView.rating = show.show_note
 
         return cell
@@ -65,6 +68,16 @@ class WatchedSeriesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 125
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let show = self.shows[indexPath.row]
+        let vc = DetailsParallaxViewController(nibName: "DetailsParallaxViewController", bundle: Bundle.main)
+        vc.id = show.show_id
+        vc.currentColor = self.currentColor
+        vc.isAlreadyWatchedShow = true
+        
+        self.present(vc, animated: true, completion: nil)
     }
 
     /*

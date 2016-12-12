@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailsParallaxViewController" customModule="iOSeries" customModuleProvider="target">
+            <connections>
+                <outlet property="navBar" destination="G3I-32-TPa" id="w3m-aR-tLS"/>
+                <outlet property="navBarTitleLabel" destination="9n1-4I-cXc" id="r77-nM-kmb"/>
+                <outlet property="scrollingHeaderView" destination="DV7-1x-cz2" id="h7L-TP-vsp"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DV7-1x-cz2" customClass="KMScrollingHeaderView">
+                    <rect key="frame" x="0.0" y="-50" width="375" height="716"/>
+                    <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G3I-32-TPa">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9n1-4I-cXc">
+                            <rect key="frame" x="42" y="30" width="291" height="24"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.23529411759999999" green="0.70196078429999997" blue="0.58431372550000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="9n1-4I-cXc" firstAttribute="leading" secondItem="G3I-32-TPa" secondAttribute="leading" constant="42" id="Nck-wl-9HQ"/>
+                        <constraint firstItem="9n1-4I-cXc" firstAttribute="bottom" secondItem="G3I-32-TPa" secondAttribute="bottomMargin" constant="-2" id="alc-iJ-1fc"/>
+                        <constraint firstItem="9n1-4I-cXc" firstAttribute="top" secondItem="G3I-32-TPa" secondAttribute="topMargin" constant="22" id="iN7-vi-adp"/>
+                        <constraint firstItem="9n1-4I-cXc" firstAttribute="centerX" secondItem="G3I-32-TPa" secondAttribute="centerX" id="mWM-yb-DqX"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="DV7-1x-cz2" secondAttribute="bottom" constant="1" id="0Io-oj-Pij"/>
+                <constraint firstItem="DV7-1x-cz2" firstAttribute="trailing" secondItem="G3I-32-TPa" secondAttribute="trailing" id="QaN-7v-6db"/>
+                <constraint firstItem="DV7-1x-cz2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-50" id="W5B-fM-HJL"/>
+                <constraint firstAttribute="trailing" secondItem="DV7-1x-cz2" secondAttribute="trailing" id="aIr-wS-Kgw"/>
+                <constraint firstItem="DV7-1x-cz2" firstAttribute="leading" secondItem="G3I-32-TPa" secondAttribute="leading" id="dUD-IK-aaC"/>
+                <constraint firstItem="DV7-1x-cz2" firstAttribute="top" secondItem="G3I-32-TPa" secondAttribute="top" constant="-50" id="tRp-9l-2Mv"/>
+                <constraint firstItem="DV7-1x-cz2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yjS-kf-hFz"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="54.5"/>
+        </view>
+    </objects>
+</document>

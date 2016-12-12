@@ -8,5 +8,11 @@
 
 import Foundation
 
-class Season: NSObject {
+class Season {
+    var season_number: Int
+    var episodes = [Episode]()
+    
+    init(number: Int) {
+        self.season_number = number
+    }
 }

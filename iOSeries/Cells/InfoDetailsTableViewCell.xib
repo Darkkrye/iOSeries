@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InfoDetailsTableViewCell" rowHeight="105" id="KGk-i7-Jjw" customClass="InfoDetailsTableViewCell" customModule="iOSeries" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="105"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="105"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Titre - Année - Status" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oJO-3T-iLJ">
+                        <rect key="frame" x="86" y="8" width="226" height="37"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.23529411759999999" green="0.70196078429999997" blue="0.58431372550000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ddn-Dl-yjG">
+                        <rect key="frame" x="8" y="8" width="70" height="87"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="ey9-k2-CnO"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNS-jj-aRd">
+                        <rect key="frame" x="204" y="64" width="108" height="32"/>
+                        <color key="backgroundColor" red="0.23529411759999999" green="0.70196078429999997" blue="0.58431372550000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="108" id="Sni-Qc-M5B"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <state key="normal" title="J'ai vu !">
+                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="seenButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UgT-hA-zvY"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQb-jX-cTT">
+                        <rect key="frame" x="86" y="64" width="110" height="32"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <state key="normal" title="Ajouter rappel">
+                            <color key="titleColor" red="0.23529411759999999" green="0.70196078429999997" blue="0.58431372550000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="rappelButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="seD-3J-pte"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Season number - Episode number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AZE-2p-gfZ">
+                        <rect key="frame" x="86" y="42" width="226" height="18"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
+                        <color key="textColor" red="0.34509803919999998" green="0.34901960780000002" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view alpha="0.30000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3ON-5k-21u" userLabel="Separator View">
+                        <rect key="frame" x="9" y="103" width="302" height="1"/>
+                        <color key="backgroundColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="kJF-SR-UYa"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="AZE-2p-gfZ" firstAttribute="trailing" secondItem="FNS-jj-aRd" secondAttribute="trailing" id="2dt-i3-xJQ"/>
+                    <constraint firstItem="Ddn-Dl-yjG" firstAttribute="centerY" secondItem="AZE-2p-gfZ" secondAttribute="centerY" id="2uv-gf-4n0"/>
+                    <constraint firstItem="vQb-jX-cTT" firstAttribute="top" secondItem="AZE-2p-gfZ" secondAttribute="bottom" constant="4" id="6Cr-1N-eas"/>
+                    <constraint firstItem="Ddn-Dl-yjG" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="8Zo-vx-p8e"/>
+                    <constraint firstItem="oJO-3T-iLJ" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="8p3-6q-2Vz"/>
+                    <constraint firstItem="vQb-jX-cTT" firstAttribute="top" secondItem="oJO-3T-iLJ" secondAttribute="bottom" constant="19" id="AWa-Hr-2eO"/>
+                    <constraint firstItem="Ddn-Dl-yjG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Frz-Ha-Tlp"/>
+                    <constraint firstItem="AZE-2p-gfZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="34" id="Ghg-Wl-K6e"/>
+                    <constraint firstAttribute="bottom" secondItem="3ON-5k-21u" secondAttribute="bottom" constant="1" id="HMc-1c-Act"/>
+                    <constraint firstItem="Ddn-Dl-yjG" firstAttribute="top" secondItem="oJO-3T-iLJ" secondAttribute="top" id="LBc-cW-z3H"/>
+                    <constraint firstItem="oJO-3T-iLJ" firstAttribute="trailing" secondItem="AZE-2p-gfZ" secondAttribute="trailing" id="Lfi-vq-Xq0"/>
+                    <constraint firstItem="3ON-5k-21u" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="9" id="aGq-HB-qnW"/>
+                    <constraint firstItem="Ddn-Dl-yjG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="bBf-ha-t3A"/>
+                    <constraint firstAttribute="trailing" secondItem="3ON-5k-21u" secondAttribute="trailing" constant="9" id="dei-A0-WJb"/>
+                    <constraint firstItem="3ON-5k-21u" firstAttribute="top" secondItem="vQb-jX-cTT" secondAttribute="bottom" constant="7" id="rzD-7O-1NP"/>
+                    <constraint firstItem="oJO-3T-iLJ" firstAttribute="leading" secondItem="AZE-2p-gfZ" secondAttribute="leading" id="szU-1B-pUB"/>
+                    <constraint firstItem="FNS-jj-aRd" firstAttribute="leading" secondItem="vQb-jX-cTT" secondAttribute="trailing" constant="8" symbolic="YES" id="tFL-5H-aYy"/>
+                    <constraint firstItem="AZE-2p-gfZ" firstAttribute="leading" secondItem="vQb-jX-cTT" secondAttribute="leading" id="utL-k1-7cu"/>
+                    <constraint firstItem="oJO-3T-iLJ" firstAttribute="leading" secondItem="Ddn-Dl-yjG" secondAttribute="trailing" constant="8" symbolic="YES" id="uul-Ym-DbJ"/>
+                    <constraint firstItem="vQb-jX-cTT" firstAttribute="baseline" secondItem="FNS-jj-aRd" secondAttribute="baseline" id="wNk-Z8-6Yo"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="authorImageView" destination="Ddn-Dl-yjG" id="gci-Pw-sz4"/>
+                <outlet property="authorLabel" destination="AZE-2p-gfZ" id="pQ7-ao-TrJ"/>
+                <outlet property="rappelButton" destination="vQb-jX-cTT" id="LnK-n4-my6"/>
+                <outlet property="seenButton" destination="FNS-jj-aRd" id="qjT-NV-sRb"/>
+                <outlet property="titleLabel" destination="oJO-3T-iLJ" id="5lo-YV-rKU"/>
+            </connections>
+            <point key="canvasLocation" x="325" y="397.5"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -13,8 +13,8 @@ class Show {
     var show_id: Int
     var show_title: String
     var show_description: String
-    var show_seasonNumber: String
-    var show_episodeNumber: String
+    var show_seasonNumber: Int
+    var show_episodeNumber: Int
     var show_genders: [String]
     var show_creationYear: String
     var show_network: String
@@ -27,8 +27,10 @@ class Show {
     var show_url: String
     var show_seasons: [Season]
     
+    var show_alreadyWatched: Bool
     
-    init(id: Int, title: String, desc: String, seasonNumber: String, episodeNumber: String, genders: [String], creationYear: String, network: String, status: String, note: Double, noters: Int, imageShow: String, imageBanner: String, imagePoster: String, url: String, seasons: [Season]) {
+    
+    init(id: Int, title: String, desc: String, seasonNumber: Int, episodeNumber: Int, genders: [String], creationYear: String, network: String, status: String, note: Double, noters: Int, imageShow: String, imageBanner: String, imagePoster: String, url: String, seasons: [Season]) {
         
         self.show_id = id
         self.show_title = title
@@ -47,6 +49,8 @@ class Show {
         self.show_imageShow = Show.hydrateImageFromString(url: imageShow)
         self.show_imageBanner = Show.hydrateImageFromString(url: imageBanner)
         self.show_imagePoster = Show.hydrateImageFromString(url: imagePoster)
+        
+        self.show_alreadyWatched = false
     }
     
     private static func getFrenchStatus(status: String) -> String {

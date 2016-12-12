@@ -19,12 +19,19 @@ class DefaultTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        let blur = UIBlurEffect(style: .light)
+        let blurView = UIVisualEffectView(effect: blur)
+        blurView.frame = self.showNameLabel.frame
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        self.showNameLabel.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        self.showInfoLabel.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        self.showNoteCosmosView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
     }
     
 }

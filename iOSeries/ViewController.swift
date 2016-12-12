@@ -255,7 +255,23 @@ extension ViewController: UITextFieldDelegate {
         if let text = textField.text {
             if text.characters.count > 0 {
                 if let id = self.resultsInfo["\(text)"] {
-                    print("\(text) - \(id)")
+                    let vc = DetailsParallaxViewController(nibName: "DetailsParallaxViewController", bundle: Bundle.main)
+                    vc.id = Int(id)!
+                    vc.currentColor = self.currentColor
+                    
+                    // Hide SearchView
+                    self.searchTextField.resignFirstResponder()
+                    self.searchTextField.text = ""
+                    UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: {
+                        self.searchView.frame.origin.y = -self.searchviewDefaultHeight
+                        self.searchBackgroundView.frame.origin.y = -self.bounds.height
+                        self.autocompleteView.frame.origin.y = -self.autocompleteView.frame.height
+                    }, completion: nil)
+                    
+                    // Present new view
+                    self.present(vc, animated: true, completion: nil)
+                    
+                    // print("\(text) - \(id)")
                     return true
                 }
             } else {
