@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class WatchedSeriesTableViewController: UITableViewController {
     
@@ -25,13 +26,11 @@ class WatchedSeriesTableViewController: UITableViewController {
         
         self.tableView.backgroundColor = UIColor.clear
         self.tableView.register(UINib(nibName: "DefaultTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "DefaultCell")
+        self.tableView.separatorStyle = .none
         
-        // Create fake serie
-        let show = Show(id: 2224, title: "Le Coeur A Ses Raisons", desc: "Le coeur a ses raisons est une palpitante parodie de feuilleton télévisé populaire contenant tous les clichés qui se rattachent au genre. On y propose un univers complètement éclaté ou sont poussés à l'extrême les intrigues amoureuses, les drames familiaux, les luttes de pouvoir, les trahisons, les complots, les histoires d'adultères et d'enfants illégitimes. Bref, là ou se joue le classique combat entre le bien et le mal.", seasonNumber: 3, episodeNumber: 39, genders: ["Comedy"], creationYear: "2005", network: "TVA", status: "Ended", note: 4.5114, noters: 88, imageShow: "http://www.betaseries.com/images/fonds/show/2224_1379364825.jpg", imageBanner: "http://www.betaseries.com/images/fonds/banner/2224_1362236212.jpg", imagePoster: "http://www.betaseries.com/images/fonds/poster/80741.jpg", url: "https://www.betaseries.com/serie/le-coeur-a-ses-raisons", seasons: [Season]())
-        show.show_alreadyWatched = true
+        NotificationCenter.default.addObserver(self, selector: #selector(WatchedSeriesTableViewController.updateShows), name: Notification.Name("UpdateShows"), object: nil)
         
-        self.shows.append(show)
-        self.tableView.reloadData()
+        self.updateShows()
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,12 +61,14 @@ class WatchedSeriesTableViewController: UITableViewController {
         cell.showNameLabel.text = "\(show.show_title) (\(show.show_creationYear))"
         cell.showInfoLabel.text = "\(show.show_seasonNumber) saisons - \(show.show_episodeNumber) episodes"
         cell.showNoteCosmosView.rating = show.show_note
+        
+        cell.backgroundColor = UIColor.clear
 
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 125
+        return DefaultTableViewCell.height
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -75,54 +76,29 @@ class WatchedSeriesTableViewController: UITableViewController {
         let vc = DetailsParallaxViewController(nibName: "DetailsParallaxViewController", bundle: Bundle.main)
         vc.id = show.show_id
         vc.currentColor = self.currentColor
-        vc.isAlreadyWatchedShow = true
+        vc.isAlreadyWatchedShow = show.show_alreadyWatched
+        vc.isScheduled = show.show_isScheduled
         
         self.present(vc, animated: true, completion: nil)
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    func updateShows() {
+        // Remove current Shows
+        self.shows.removeAll()
+        
+        // Retrieve Shows
+        let fr: NSFetchRequest = CD_Show.fetchRequest()
+        // fr.predicate = NSPredicate(format: "alreadyWatched==%@", "true")
+        if let context = DataManager.shared.objectContext {
+            if let rows = try? context.fetch(fr) {
+                for s in rows {
+                    if s.alreadyWatched {
+                        self.shows.append(Show(id: Int(s.id), title: s.title!, seasonNumber: Int(s.seasonNumber), episodeNumber: Int(s.episodeNumber), creationYear: s.creationYear!, note: s.note, imageBanner: s.imageBannerURL!, alreadyWatched: s.alreadyWatched, isScheduled: s.isScheduled, scheduledDate: s.scheduledDate as? Date, wantsToWatch: s.wantsToWatch))
+                    }
+                }
+            }
+        }
+        
+        self.tableView.reloadData()
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

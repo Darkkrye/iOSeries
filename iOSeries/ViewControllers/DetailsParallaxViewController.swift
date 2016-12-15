@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import CoreData
 
 class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, KMScrollingHeaderViewDelegate/*, ParallaxDetailsViewDelegate, UIPickerViewDelegate*/ {
     
@@ -16,6 +17,7 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
     let buttonBack = UIButton(type: .custom)
     let blackImageView = UIView()
     let newImageView = UIImageView()
+    let firstAccordionCell = 5
     
     
     // MARK: - Private Variables
@@ -38,6 +40,12 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
     
     var isAlreadyWatchedShow = false
     var isScheduled = false
+    var wantsToWatchShow = false
+    
+    var cells = SwiftyAccordionCells()
+    var previouslySelectedHeaderIndex: Int?
+    var selectedHeaderIndex: Int?
+    var selectedItemIndex: Int?
     
     // MARK: - IBOutlets
     @IBOutlet var scrollingHeaderView: KMScrollingHeaderView!
@@ -109,6 +117,8 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
                         let show = Show(id: json["show"]["id"].intValue, title: json["show"]["title"].stringValue, desc: json["show"]["description"].stringValue, seasonNumber: seasonNumber, episodeNumber: Int(json["show"]["episodes"].stringValue)!, genders: [String](), creationYear: json["show"]["creation"].stringValue, network: json["show"]["network"].stringValue, status: json["show"]["status"].stringValue, note: json["show"]["notes"]["mean"].doubleValue, noters: json["show"]["notes"]["total"].intValue, imageShow: json["show"]["images"]["show"].stringValue, imageBanner: json["show"]["images"]["banner"].stringValue, imagePoster: json["show"]["images"]["poster"].stringValue, url: json["show"]["resource_url"].stringValue, seasons: seasons)
                         
                         show.show_alreadyWatched = self.isAlreadyWatchedShow
+                        show.show_isScheduled = self.isScheduled
+                        show.show_wantsToWatch = self.wantsToWatchShow
                         
                         for gender in json["show"]["genres"] {
                             show.show_genders.append(gender.1.stringValue)
@@ -119,6 +129,7 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
                         DispatchQueue.main.async {
                             self.setupDetailsPageView()
                             self.setupNavbarButtons()
+                            self.setupSeasonCells()
                         }
                     }
                 }
@@ -144,15 +155,18 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return 4 + self.cells.items.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = UITableViewCell()
+        var cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
         
         if let show = self.show {
             switch indexPath.row {
+            case 0:
+                break
+                
             case 1:
                 var infoDetailsCell: InfoDetailsTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "InfoDetailsTableViewCell") as? InfoDetailsTableViewCell
                 
@@ -173,14 +187,18 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
                     infoDetailsCell.rappelButton.backgroundColor = self.currentColor
                     infoDetailsCell.rappelButton.setTitleColor(UIColor.white, for: .normal)
                     infoDetailsCell.rappelButton.tag = 0
+                    infoDetailsCell.rappelButton.isHidden = false
                     
                     infoDetailsCell.seenButton.layer.borderColor = self.currentColor.cgColor
                     infoDetailsCell.seenButton.setTitleColor(self.currentColor, for: .normal)
                     infoDetailsCell.seenButton.backgroundColor = UIColor.white
                     
-                    if self.isScheduled {
+                    if show.show_isScheduled {
                         infoDetailsCell.rappelButton.setTitle("Supprimer rappel", for: .normal)
                         infoDetailsCell.rappelButton.tag = 1
+                    } else {
+                        infoDetailsCell.rappelButton.setTitle("Ajouter rappel", for: .normal)
+                        infoDetailsCell.rappelButton.tag = 0
                     }
                     
                 } else {
@@ -192,13 +210,22 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
                     infoDetailsCell.seenButton.backgroundColor = self.currentColor
                     infoDetailsCell.seenButton.setTitleColor(UIColor.white, for: .normal)
                     
-                    infoDetailsCell.rappelButton.isHidden = true
+                    infoDetailsCell.rappelButton.backgroundColor = UIColor.white
+                    infoDetailsCell.rappelButton.setTitleColor(self.currentColor, for: .normal)
+                    infoDetailsCell.rappelButton.layer.borderColor = self.currentColor.cgColor
                     
+                    if show.show_wantsToWatch {
+                        infoDetailsCell.rappelButton.setTitle("Je ne veux plus voir", for: .normal)
+                        infoDetailsCell.rappelButton.tag = 3
+                    } else {
+                        infoDetailsCell.rappelButton.setTitle("Je veux voir", for: .normal)
+                        infoDetailsCell.rappelButton.tag = 2
+                    }
                 }
                 
                 infoDetailsCell.titleLabel.textColor = self.currentColor
                 
-                // infoDetailsCell.delegate = self
+                infoDetailsCell.delegate = self
                 
                 cell = infoDetailsCell
                 
@@ -253,50 +280,16 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
                 
                 break
                 
-            /*case 5:
-                var ratingCell: RatingTableViewCell! = tableView.dequeueReusableCellWithIdentifier("RatingTableViewCell") as? RatingTableViewCell
-                
-                if ratingCell == nil {
-                    ratingCell = RatingTableViewCell.ratingCell()
-                }
-                
-                ratingCell.noteLabel.text = "4"
-                ratingCell.countLabel.text = "125 votes"
-                ratingCell.distanceLabel.text = "250 m"
-                
-                cell = ratingCell
-                
-                break
-                
-            case 6:
-                var moreCell: MoreTableViewCell! = tableView.dequeueReusableCellWithIdentifier("MoreTableViewCell") as? MoreTableViewCell
-                
-                if moreCell == nil {
-                    moreCell = MoreTableViewCell.moreCell()
-                }
-                
-                moreCell.delegate = self
-                cell = moreCell
-                
-                break
-                
-            case 7:
-                var moreImagesCell: MoreImagesTableViewCell! = tableView.dequeueReusableCellWithIdentifier("MoreImagesTableViewCell") as? MoreImagesTableViewCell
-                
-                if moreImagesCell == nil {
-                    moreImagesCell = MoreImagesTableViewCell.moreImagesCell()
-                }
-                
-                moreImagesCell.images = self.images
-                moreImagesCell.imagePager.reloadData()
-                
-                moreImagesCell.delegate = self
-                
-                cell = moreImagesCell
-                
-                break*/
-                
             default:
+                let item = self.cells.items[indexPath.row - self.firstAccordionCell]
+                let value = item.value
+                cell.textLabel?.text = value
+                
+                if item as? SwiftyAccordionCells.HeaderItem != nil {
+                    cell.backgroundColor = self.currentColor
+                    cell.accessoryType = .disclosureIndicator
+                }
+                
                 break
             }
         }
@@ -330,16 +323,16 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
             height = 65
             break
             
-        case 6:
-            height = 62
-            break
-            
-        case 7:
-            height = 250
-            break
-            
         default:
-            height = 100
+            let item = self.cells.items[indexPath.row - self.firstAccordionCell]
+            
+            if item is SwiftyAccordionCells.HeaderItem {
+                height = 50
+            } else if item.isHidden {
+                height = 0
+            } else {
+                height = 44
+            }
             break
         }
         
@@ -348,6 +341,45 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.scrollingHeaderView.tableView.deselectRow(at: indexPath, animated: false)
+        
+        switch indexPath.row {
+        case 0, 1, 2, 3, 4:
+            break
+            
+        default:
+            let item = self.cells.items[indexPath.row - self.firstAccordionCell]
+            
+            if item is SwiftyAccordionCells.HeaderItem {
+                if self.selectedHeaderIndex == nil {
+                    self.selectedHeaderIndex = indexPath.row
+                } else {
+                    self.previouslySelectedHeaderIndex = self.selectedHeaderIndex
+                    self.selectedHeaderIndex = indexPath.row
+                }
+                
+                if let pSHI = self.previouslySelectedHeaderIndex {
+                    self.cells.collapse(pSHI)
+                }
+                
+                if self.previouslySelectedHeaderIndex != self.selectedHeaderIndex {
+                    self.cells.expand(self.selectedHeaderIndex!)
+                } else {
+                    self.selectedHeaderIndex = nil
+                    self.previouslySelectedHeaderIndex = nil
+                }
+                
+                self.scrollingHeaderView.tableView.beginUpdates()
+                self.scrollingHeaderView.tableView.endUpdates()
+                // self.scrollingHeaderView.tableView.reloadData()
+                
+                self.navBar.alpha = 1
+                self.statusBarHidden = false
+            }
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -462,6 +494,22 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
         self.view.addSubview(buttonBack)
     }
     
+    func setupSeasonCells() {
+        
+        var ss = self.show!.show_seasons
+        ss.sort(by: { $0.season_number > $1.season_number })
+        
+        for season in ss {
+            self.cells.append(SwiftyAccordionCells.HeaderItem(value: "Saison \(season.season_number) - \(season.episodes.count) episodes"))
+            
+            for episode in season.episodes {
+                self.cells.append(SwiftyAccordionCells.Item(value: "\(episode.episode_code) - \(episode.episode_title)"))
+            }
+        }
+        
+        self.scrollingHeaderView.tableView.reloadData()
+    }
+    
     func isRowVisible() -> Bool {
         guard let indexes = self.scrollingHeaderView.tableView.indexPathsForVisibleRows else {
             return false
@@ -478,5 +526,151 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
     
     func backButton() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func saveCurrentShowState() {
+        if let context = DataManager.shared.objectContext {
+            
+            let fr: NSFetchRequest = CD_Show.fetchRequest()
+            var alreadyExists = false
+            
+            if let show = self.show {
+                
+                if let rows = try? context.fetch(fr) {
+                    for cShow in rows {
+                        if show.show_id == Int(cShow.id) {
+                            
+                            alreadyExists = true
+                            
+                            if show.show_alreadyWatched || show.show_wantsToWatch {
+                                // UPDATE
+                                cShow.id = Int16(show.show_id)
+                                cShow.title = show.show_title
+                                cShow.seasonNumber = Int16(show.show_seasonNumber)
+                                cShow.episodeNumber = Int16(show.show_episodeNumber)
+                                cShow.creationYear = show.show_creationYear
+                                cShow.note = show.show_note
+                                cShow.imageBannerURL = show.show_imageBannerURL
+                                cShow.alreadyWatched = show.show_alreadyWatched
+                                cShow.isScheduled = show.show_isScheduled
+                                cShow.scheduledDate = show.show_scheduledDate as NSDate?
+                                cShow.wantsToWatch = show.show_wantsToWatch
+                                
+                                if show.show_isScheduled {
+                                    self.scheduleShow()
+                                } else {
+                                    self.unscheduleShow()
+                                }
+                                
+                            } else {
+                                // DELETE
+                                context.delete(cShow)
+                                self.unscheduleShow()
+                            }
+                            
+                            break
+                        }
+                    }
+                }
+                
+                if !alreadyExists {
+                    // CREATE
+                    if let s = NSEntityDescription.insertNewObject(forEntityName: "CD_Show", into: context) as? CD_Show {
+                        s.id = Int16(show.show_id)
+                        s.title = show.show_title
+                        s.seasonNumber = Int16(show.show_seasonNumber)
+                        s.episodeNumber = Int16(show.show_episodeNumber)
+                        s.creationYear = show.show_creationYear
+                        s.note = show.show_note
+                        s.imageBannerURL = show.show_imageBannerURL
+                        s.alreadyWatched = show.show_alreadyWatched
+                        s.isScheduled = show.show_isScheduled
+                        s.scheduledDate = show.show_scheduledDate as NSDate?
+                        s.wantsToWatch = show.show_wantsToWatch
+                    }
+                }
+            }
+        
+            try? context.save()
+            NotificationCenter.default.post(name: Notification.Name("UpdateShows"), object: nil)
+        }
+    }
+    
+    func scheduleShow() {
+        print("Schedule Show")
+    }
+    
+    func unscheduleShow() {
+        print("Unschedule Show")
+    }
+}
+
+// Extension for InfoDetailstableViewCell Delegate
+extension DetailsParallaxViewController: InfoDetailsTableViewCellDelegate {
+    func setShowAsSeen() {
+        print("J'ai vu")
+        
+        self.show!.show_alreadyWatched = true
+        self.show!.show_wantsToWatch = false
+        
+        self.saveCurrentShowState()
+        
+        self.scrollingHeaderView.tableView.reloadData()
+    }
+    
+    func setShowAsUnseen() {
+        print("Pas vu")
+        
+        self.show!.show_alreadyWatched = false
+        self.show!.show_isScheduled = false
+        self.show!.show_wantsToWatch = false
+        
+        self.saveCurrentShowState()
+        
+        self.scrollingHeaderView.tableView.reloadData()
+    }
+    
+    func schedule() {
+        print("Schedule")
+        
+        self.show!.show_isScheduled = true
+        
+        self.saveCurrentShowState()
+        
+        self.scrollingHeaderView.tableView.reloadData()
+    }
+    
+    func unschedule() {
+        print("Unschedule")
+        
+        self.show!.show_isScheduled = false
+        
+        self.saveCurrentShowState()
+        
+        self.scrollingHeaderView.tableView.reloadData()
+    }
+    
+    func wantsToWatch() {
+        print("Je veux voir")
+        
+        self.show!.show_wantsToWatch = true
+        self.show!.show_alreadyWatched = false
+        self.show!.show_isScheduled = false
+        
+        self.saveCurrentShowState()
+        
+        self.scrollingHeaderView.tableView.reloadData()
+    }
+    
+    func wantsToUnwatch() {
+        print("Je ne veux plus voir")
+        
+        self.show!.show_wantsToWatch = false
+        self.show!.show_alreadyWatched = false
+        self.show!.show_isScheduled = false
+        
+        self.saveCurrentShowState()
+        
+        self.scrollingHeaderView.tableView.reloadData()
     }
 }

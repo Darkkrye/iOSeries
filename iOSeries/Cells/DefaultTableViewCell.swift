@@ -11,6 +11,8 @@ import Cosmos
 
 class DefaultTableViewCell: UITableViewCell {
     
+    static let height: CGFloat = 175
+    
     @IBOutlet weak var showImageView: UIImageView!
     @IBOutlet weak var showNameLabel: UILabel!
     @IBOutlet weak var showInfoLabel: UILabel!
@@ -20,9 +22,11 @@ class DefaultTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        let blur = UIBlurEffect(style: .light)
-        let blurView = UIVisualEffectView(effect: blur)
-        blurView.frame = self.showNameLabel.frame
+        // self.showImageView.layer.cornerRadius = 2
+        self.showImageView.layer.masksToBounds = true
+        self.showNameLabel.layer.masksToBounds = true
+        self.showInfoLabel.layer.masksToBounds = true
+        self.showNoteCosmosView.layer.masksToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

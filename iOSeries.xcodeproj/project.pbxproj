@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F4060BF1E01C28D0090D6D2 /* FileManager+Documents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4060BE1E01C28D0090D6D2 /* FileManager+Documents.swift */; };
+		8F4060C11E01C2CB0090D6D2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4060C01E01C2CB0090D6D2 /* DataManager.swift */; };
 		8F8308721DFDB8D400852D65 /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8308701DFDB8D400852D65 /* DescriptionTableViewCell.swift */; };
 		8F8308731DFDB8D400852D65 /* DescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F8308711DFDB8D400852D65 /* DescriptionTableViewCell.xib */; };
 		8F8308751DFF1EB500852D65 /* ScheduledSeriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8308741DFF1EB500852D65 /* ScheduledSeriesTableViewController.swift */; };
@@ -20,6 +22,8 @@
 		8F8FF74A1DFD9C13007982FA /* KMScrollingHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8FF7491DFD9C13007982FA /* KMScrollingHeaderView.m */; };
 		8F8FF74D1DFDAC03007982FA /* InfoDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8FF74B1DFDAC03007982FA /* InfoDetailsTableViewCell.swift */; };
 		8F8FF74E1DFDAC03007982FA /* InfoDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F8FF74C1DFDAC03007982FA /* InfoDetailsTableViewCell.xib */; };
+		8FA9DD701E00665600A63EE9 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA9DD6F1E00665600A63EE9 /* CardView.swift */; };
+		8FA9DD721E01AC2600A63EE9 /* SwiftyAccordionCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA9DD711E01AC2600A63EE9 /* SwiftyAccordionCells.swift */; };
 		8FE80C621DF8401500D8E0D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE80C611DF8401500D8E0D2 /* AppDelegate.swift */; };
 		8FE80C641DF8401500D8E0D2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE80C631DF8401500D8E0D2 /* ViewController.swift */; };
 		8FE80C671DF8401500D8E0D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FE80C651DF8401500D8E0D2 /* Main.storyboard */; };
@@ -39,6 +43,8 @@
 /* Begin PBXFileReference section */
 		4DDD49A10E8E3AAEE57EDDF3 /* Pods-iOSeries.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSeries.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSeries/Pods-iOSeries.debug.xcconfig"; sourceTree = "<group>"; };
 		597A7FB83C8A397E6E255289 /* Pods-iOSeries.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSeries.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSeries/Pods-iOSeries.release.xcconfig"; sourceTree = "<group>"; };
+		8F4060BE1E01C28D0090D6D2 /* FileManager+Documents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Documents.swift"; sourceTree = "<group>"; };
+		8F4060C01E01C2CB0090D6D2 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		8F8308701DFDB8D400852D65 /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		8F8308711DFDB8D400852D65 /* DescriptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DescriptionTableViewCell.xib; sourceTree = "<group>"; };
 		8F8308741DFF1EB500852D65 /* ScheduledSeriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduledSeriesTableViewController.swift; sourceTree = "<group>"; };
@@ -54,6 +60,8 @@
 		8F8FF7491DFD9C13007982FA /* KMScrollingHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMScrollingHeaderView.m; sourceTree = "<group>"; };
 		8F8FF74B1DFDAC03007982FA /* InfoDetailsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		8F8FF74C1DFDAC03007982FA /* InfoDetailsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoDetailsTableViewCell.xib; sourceTree = "<group>"; };
+		8FA9DD6F1E00665600A63EE9 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		8FA9DD711E01AC2600A63EE9 /* SwiftyAccordionCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyAccordionCells.swift; sourceTree = "<group>"; };
 		8FE80C5E1DF8401500D8E0D2 /* iOSeries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSeries.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FE80C611DF8401500D8E0D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FE80C631DF8401500D8E0D2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +105,8 @@
 			isa = PBXGroup;
 			children = (
 				8F8FF7461DFD9BF8007982FA /* KMSHeaderView */,
+				8FA9DD6F1E00665600A63EE9 /* CardView.swift */,
+				8FA9DD711E01AC2600A63EE9 /* SwiftyAccordionCells.swift */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -172,6 +182,8 @@
 				8F8FF7371DFD7F26007982FA /* Show.swift */,
 				8F8FF7391DFD82C3007982FA /* Season.swift */,
 				8F8FF73B1DFD8302007982FA /* Episode.swift */,
+				8F4060BE1E01C28D0090D6D2 /* FileManager+Documents.swift */,
+				8F4060C01E01C2CB0090D6D2 /* DataManager.swift */,
 			);
 			path = "Model-Provider";
 			sourceTree = "<group>";
@@ -233,7 +245,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Pierre Boudon";
 				TargetAttributes = {
 					8FE80C5D1DF8401500D8E0D2 = {
@@ -337,9 +349,12 @@
 				8FE80C641DF8401500D8E0D2 /* ViewController.swift in Sources */,
 				8F83087C1DFF424800852D65 /* RatingTableViewCell.swift in Sources */,
 				8FE80C6A1DF8401500D8E0D2 /* iOSeries.xcdatamodeld in Sources */,
+				8F4060BF1E01C28D0090D6D2 /* FileManager+Documents.swift in Sources */,
 				8FFEB4171DFAB08500622AFF /* TabProvider.swift in Sources */,
 				8FFEB41E1DFAC2F200622AFF /* ToWatchSeriesTableViewController.swift in Sources */,
 				8F8FF7411DFD9B52007982FA /* DetailsParallaxViewController.swift in Sources */,
+				8FA9DD701E00665600A63EE9 /* CardView.swift in Sources */,
+				8FA9DD721E01AC2600A63EE9 /* SwiftyAccordionCells.swift in Sources */,
 				8F8FF73A1DFD82C4007982FA /* Season.swift in Sources */,
 				8FE80C621DF8401500D8E0D2 /* AppDelegate.swift in Sources */,
 				8FFEB4231DFAC8D000622AFF /* URLProvider.swift in Sources */,
@@ -349,6 +364,7 @@
 				8FFEB41C1DFABB2D00622AFF /* WatchedSeriesTableViewController.swift in Sources */,
 				8FF93C321DFD7AD600C74624 /* DefaultTableViewCell.swift in Sources */,
 				8F8FF74D1DFDAC03007982FA /* InfoDetailsTableViewCell.swift in Sources */,
+				8F4060C11E01C2CB0090D6D2 /* DataManager.swift in Sources */,
 				8F8308751DFF1EB500852D65 /* ScheduledSeriesTableViewController.swift in Sources */,
 				8F8FF7381DFD7F26007982FA /* Show.swift in Sources */,
 			);

@@ -7,6 +7,18 @@
 //
 
 import UIKit
+import CoreData
+
+protocol InfoDetailsTableViewCellDelegate {
+    func setShowAsSeen()
+    func setShowAsUnseen()
+    
+    func schedule()
+    func unschedule()
+    
+    func wantsToWatch()
+    func wantsToUnwatch()
+}
 
 class InfoDetailsTableViewCell: UITableViewCell {
     
@@ -14,7 +26,7 @@ class InfoDetailsTableViewCell: UITableViewCell {
     
     
     // MARK: - Private Variables
-    // var delegate: ParallaxDetailsViewDelegate?
+    var delegate: InfoDetailsTableViewCellDelegate?
     
     
     // MARK: - IBOutlets
@@ -27,20 +39,34 @@ class InfoDetailsTableViewCell: UITableViewCell {
     // MARK: - IBActions
     @IBAction func seenButtonTapped(_ sender: Any) {
         if let button: UIButton = sender as? UIButton {
-            if button.tag == 0 {
-                print("J'ai vu")
-            } else if button.tag == 1 {
-                print("Pas vu")
+            if let d = self.delegate {
+                if button.tag == 0 {
+                    // print("J'ai vu")
+                    d.setShowAsSeen()
+                } else if button.tag == 1 {
+                    // print("Pas vu")
+                    d.setShowAsUnseen()
+                }
             }
         }
     }
     
     @IBAction func rappelButtonTapped(_ sender: Any) {
         if let button: UIButton = sender as? UIButton {
-            if button.tag == 0 {
-                print("Ajouter rappel")
-            } else if button.tag == 1 {
-                print("Supprimer rappel")
+            if let d = self.delegate {
+                if button.tag == 0 {
+                    // print("Ajouter rappel")
+                    d.schedule()
+                } else if button.tag == 1 {
+                    // print("Supprimer rappel")
+                    d.unschedule()
+                } else if button.tag == 2 {
+                    // print("Je veux voir !")
+                    d.wantsToWatch()
+                } else if button.tag == 3 {
+                    // print("Je ne veux plus voir")
+                    d.wantsToUnwatch()
+                }
             }
         }
     }
