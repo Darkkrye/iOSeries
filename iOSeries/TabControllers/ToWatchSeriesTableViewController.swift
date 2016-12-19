@@ -7,13 +7,8 @@
 //
 
 import UIKit
-import CoreData
 
 class ToWatchSeriesTableViewController: UITableViewController {
-    
-    var currentColor = UIColor.iOSeriesGreenColor
-
-    var shows = [Show]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,14 +18,6 @@ class ToWatchSeriesTableViewController: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
-        self.tableView.backgroundColor = UIColor.clear
-        self.tableView.register(UINib(nibName: "DefaultTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "DefaultCell")
-        self.tableView.separatorStyle = .none
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(ToWatchSeriesTableViewController.updateShows), name: Notification.Name("UpdateShows"), object: nil)
-        
-        self.updateShows()
     }
     
     override func didReceiveMemoryWarning() {
@@ -42,62 +29,67 @@ class ToWatchSeriesTableViewController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.shows.count
+        return 0
     }
     
-    
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath) as! DefaultTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
         
         // Configure the cell...
-        let show = self.shows[indexPath.row]
-        
-        cell.showImageView.image = show.show_imageBanner
-        cell.showNameLabel.text = "\(show.show_title) (\(show.show_creationYear))"
-        cell.showInfoLabel.text = "\(show.show_seasonNumber) saisons - \(show.show_episodeNumber) episodes"
-        cell.showNoteCosmosView.rating = show.show_note
-        
-        cell.backgroundColor = UIColor.clear
         
         return cell
     }
+    */
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return DefaultTableViewCell.height
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
     }
+    */
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let show = self.shows[indexPath.row]
-        let vc = DetailsParallaxViewController(nibName: "DetailsParallaxViewController", bundle: Bundle.main)
-        vc.id = show.show_id
-        vc.currentColor = self.currentColor
-        vc.wantsToWatchShow = show.show_wantsToWatch
-        
-        self.present(vc, animated: true, completion: nil)
-    }
-    
-    func updateShows() {
-        // Remove current Shows
-        self.shows.removeAll()
-        
-        // Retrieve Shows
-        let fr: NSFetchRequest = CD_Show.fetchRequest()
-        // fr.predicate = NSPredicate(format: "wantsToWatch==%@", "true")
-        if let context = DataManager.shared.objectContext {
-            if let rows = try? context.fetch(fr) {
-                for s in rows {
-                    if s.wantsToWatch {
-                        self.shows.append(Show(id: Int(s.id), title: s.title!, seasonNumber: Int(s.seasonNumber), episodeNumber: Int(s.episodeNumber), creationYear: s.creationYear!, note: s.note, imageBanner: s.imageBannerURL!, alreadyWatched: s.alreadyWatched, isScheduled: s.isScheduled, scheduledDate: s.scheduledDate as? Date, wantsToWatch: s.wantsToWatch))
-                    }
-                }
-            }
+    /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
-        
-        self.tableView.reloadData()
     }
+    */
+    
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+        
+    }
+    */
+    
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+    
+    /*
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+    
 }

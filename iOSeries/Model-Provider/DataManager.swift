@@ -19,7 +19,6 @@ class DataManager: NSObject {
         if let modelURL = Bundle.main.url(forResource: "iOSeries", withExtension: "momd") {
             if let model = NSManagedObjectModel(contentsOf: modelURL) {
                 if let storageURL = FileManager.documentURL(childPath: "iOSeries.db") {
-                    print(storageURL)
                     
                     let storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
                     

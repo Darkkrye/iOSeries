@@ -271,7 +271,6 @@ extension ViewController: UITextFieldDelegate {
                     // Present new view
                     self.present(vc, animated: true, completion: nil)
                     
-                    // print("\(text) - \(id)")
                     return true
                 }
             } else {
