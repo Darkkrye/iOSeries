@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import CoreData
+import HSDatePickerViewController
 
 class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, KMScrollingHeaderViewDelegate/*, ParallaxDetailsViewDelegate, UIPickerViewDelegate*/ {
     
@@ -404,55 +405,6 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
         self.buttonBack.frame = fixedButtonFrame
     }
     
-    /*override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        let touch = event?.allTouches()?.first
-        let touchLocation = touch?.locationInView(self.view)
-        
-        if CGRectContainsPoint(self.view.frame, touchLocation!) {
-            self.dragging = true
-            self.oldX = (touchLocation?.x)!
-            self.oldY = (touchLocation?.y)!
-        }
-    }*/
-    
-    /*override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        UIView.animateWithDuration(0.25, delay: 0.0, options: ([.BeginFromCurrentState, .CurveEaseInOut]), animations: {() -> Void in
-            self.blackImageView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
-            }, completion: { _ in })
-        
-        let touch = event?.allTouches()?.first
-        let touchLocation = touch?.locationInView(self.view)
-        
-        if dragging {
-            let imageView = self.blackImageView.subviews.first as! UIImageView
-            
-            var frame = self.view.frame
-            
-            self.endX = self.view.frame.origin.x + (touchLocation?.x)! - oldX
-            self.endY = self.view.frame.origin.y + (touchLocation?.y)! - oldY
-            
-            frame.origin.x = self.endX
-            frame.origin.y = self.endY
-            
-            imageView.frame = frame
-        }
-    }*/
-    
-    /*override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.dragging = false
-        
-        let imageView = self.blackImageView.subviews.first as! UIImageView
-        
-        if imageView.center.x <= -75 || imageView.center.x >= 450 || imageView.center.y <= 150 || imageView.center.y >= 550 {
-            self.blackImageView.subviews.first?.superview?.removeFromSuperview()
-        } else {
-            UIView.animateWithDuration(0.25, delay: 0.0, options: ([.BeginFromCurrentState, .CurveEaseInOut]), animations: {() -> Void in
-                self.blackImageView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-                self.blackImageView.subviews.first?.frame = self.view.frame
-                }, completion: { _ in })
-        }
-    }*/
-    
     
     // MARK: - Personnal Delegates
     // MARK: Delegates KMScrollingHeaderViewDelegate
@@ -633,11 +585,13 @@ extension DetailsParallaxViewController: InfoDetailsTableViewCellDelegate {
     func schedule() {
         print("Schedule")
         
-        self.show!.show_isScheduled = true
+        let hsdpvc = HSDatePickerViewController()
+        hsdpvc.mainColor = self.currentColor
+        hsdpvc.confirmButtonTitle = "Programmer"
+        hsdpvc.backButtonTitle = "Annuler"
+        hsdpvc.delegate = self
         
-        self.saveCurrentShowState()
-        
-        self.scrollingHeaderView.tableView.reloadData()
+        self.present(hsdpvc, animated: true, completion: nil)
     }
     
     func unschedule() {
@@ -668,6 +622,18 @@ extension DetailsParallaxViewController: InfoDetailsTableViewCellDelegate {
         self.show!.show_wantsToWatch = false
         self.show!.show_alreadyWatched = false
         self.show!.show_isScheduled = false
+        
+        self.saveCurrentShowState()
+        
+        self.scrollingHeaderView.tableView.reloadData()
+    }
+}
+
+extension DetailsParallaxViewController: HSDatePickerViewControllerDelegate {
+    func hsDatePickerPickedDate(_ date: Date!) {
+        
+        self.show!.show_isScheduled = true
+        self.show!.show_scheduledDate = date
         
         self.saveCurrentShowState()
         

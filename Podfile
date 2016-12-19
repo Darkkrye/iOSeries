@@ -12,5 +12,6 @@ target 'iOSeries' do
   pod 'SearchTextField', :git => 'https://github.com/apasccon/SearchTextField'
   pod 'Cosmos', :git => 'https://github.com/marketplacer/Cosmos'
   pod 'ALAccordion', :git => 'https://github.com/Alliants/ALAccordion'
+  pod 'HSDatePickerViewController', :git => 'https://github.com/EmilYo/HSDatePickerViewController'
 
 end

@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>HSDatePickerViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-iOSeries.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,22 +47,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>04E37D29D57DA2D26028509C18CD105A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>2F0FE1E2A5B1EF15139E10A40F05CE94</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8039A6CFC96F513BA3AFFD3CE9942F97</key>
+		<key>71BBCBF05DE4DF32C6C098207A9D0AB8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB37792879AFEB40A9BB515BF6949CD5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D30C1742B34383E0EB3FECBDD7D26218</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,7 +82,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FAF78C196BA05B856703383044B4759C</key>
+		<key>FF4D32E64EC260639F2C79FE8AD6AC60</key>
 		<dict>
 			<key>primary</key>
 			<true/>

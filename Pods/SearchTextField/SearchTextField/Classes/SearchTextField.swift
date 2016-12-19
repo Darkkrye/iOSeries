@@ -404,6 +404,8 @@ extension SearchTextField: UITableViewDelegate, UITableViewDataSource {
         return theme.cellHeight
     }
     
+    
+    
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if itemSelectionHandler == nil {
             self.text = filteredResults[(indexPath as NSIndexPath).row].title
