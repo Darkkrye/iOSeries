@@ -66,7 +66,7 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
         self.navBar.backgroundColor = currentColor
         
         self.loadingView = UIView()
-        self.loadingView.frame = self.view.frame
+        self.loadingView.frame = UIScreen.main.bounds
         self.loadingView.backgroundColor = self.currentColor
         
         let activity = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
