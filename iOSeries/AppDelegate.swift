@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +17,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound], completionHandler: { (accepted, error) in
+            if !accepted {
+                print("Notification access denied")
+            }
+        })
+        
+        let remindAction = UNNotificationAction(identifier: "remindLater", title: "Rappel moi plus tard", options: [])
+        let scheduleAction = UNNotificationAction(identifier: "schedule", title: "Programmer", options: [])
+        
+        let category = UNNotificationCategory(identifier: "category", actions: [remindAction, scheduleAction], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+        
         return true
     }
 
@@ -88,6 +101,123 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
+    func scheduleNotification(at date: Date, showName: String, imageURL: String) {
+        UNUserNotificationCenter.current().delegate = self
+        
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents(in: .current, from: date)
+        let newComponents = DateComponents(calendar: calendar, timeZone: .current, era: nil, year: components.year, month: components.month, day: components.day, hour: components.hour, minute: components.minute, second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: newComponents, repeats: false)
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Rappel \(showName) ! - iOSeries"
+        content.body = "N'oubliez pas de regarder le nouvel épisode de votre série \(showName)"
+        content.sound = UNNotificationSound.default()
+        content.categoryIdentifier = "category"
+        
+        if let url = URL(string: imageURL), let data = NSData(contentsOf: url) {
+            if let att = UNNotificationAttachment.create(imageFileIdentifier: showName, data: data as Data, options: nil, baseURL: imageURL) {
+                content.attachments = [att]
+            } else {
+                print("The attachment was not loaded")
+            }
+        } else {
+            print("The attachment was not created")
+        }
+        
+        let request = UNNotificationRequest(identifier: showName, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: { (error) in
+            if let error = error {
+                print("ERREUR : \(error)")
+            }
+        })
+    }
+    
+    func scheduleNotificationEveryWeek(showName: String, attachment: String) {
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60/* *24*7 */, repeats: true)
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Rappel \(showName) hebdomadaire - iOSeries"
+        content.body = "N'oublier pas de regarder le nouvel épisode de votre série \(showName)"
+        content.sound = UNNotificationSound.default()
+        
+        if let url = URL(string: attachment), let data = NSData(contentsOf: url) {
+            if let att = UNNotificationAttachment.create(imageFileIdentifier: showName, data: data as Data, options: nil, baseURL: attachment) {
+                content.attachments = [att]
+            } else {
+                print("The attachment was not loaded")
+            }
+        } else {
+            print("The attachment was not created")
+        }
+        
+        let request = UNNotificationRequest(identifier: "Scheduled \(showName)", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: { (error) in
+            if let error = error {
+                print("ERREUR : \(error)")
+            }
+        })
+    }
 }
 
+// Extension for UNUserNotificationCenter Delegate
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let attachment = response.notification.request.content.attachments.first
+        
+        if response.actionIdentifier == "remindLater" {
+            let newDate = Date(timeInterval: 60, since: Date())
+            
+            self.scheduleNotification(at: newDate, showName: response.notification.request.identifier, imageURL: attachment!.identifier)
+        } else if response.actionIdentifier == "schedule" {
+            self.scheduleNotificationEveryWeek(showName: response.notification.request.identifier, attachment: attachment!.identifier)
+        }
+        
+        completionHandler()
+    }
+}
+
+// Extension for UNNotificationAttachment
+extension UNNotificationAttachment {
+    static func create(imageFileIdentifier: String, data: Data, options: [NSObject: AnyObject]?, baseURL: String) -> UNNotificationAttachment? {
+        let fileManager = FileManager.default
+        let tmpSubFolderName = ProcessInfo.processInfo.globallyUniqueString
+        let tmpSubFolderURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(tmpSubFolderName, isDirectory: true)
+        
+        do {
+            try fileManager.createDirectory(at: tmpSubFolderURL, withIntermediateDirectories: true, attributes: nil)
+            let fileURL = tmpSubFolderURL.appendingPathComponent("\(imageFileIdentifier).png")
+            
+            try data.write(to: fileURL)
+            let imageAttachment = try UNNotificationAttachment.init(identifier: baseURL, url: fileURL, options: options)
+            
+            return imageAttachment
+        } catch let error {
+            print(error)
+        }
+        
+        return nil
+    }
+}
+
+extension Date {
+    func getDayName() -> String {
+        let df = DateFormatter()
+        df.dateFormat = "EEEE"
+        
+        let s = df.string(from: self)
+        
+        return s.capitalized
+    }
+    
+    func getTimeDate() -> String {
+        let df = DateFormatter()
+        df.dateFormat = "HH'h'mm"
+        
+        return df.string(from: self)
+    }
+}

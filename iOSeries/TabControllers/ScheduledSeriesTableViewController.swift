@@ -59,7 +59,7 @@ class ScheduledSeriesTableViewController: UITableViewController {
         
         cell.showImageView.image = show.show_imageBanner
         cell.showNameLabel.text = "\(show.show_title) (\(show.show_creationYear))"
-        cell.showInfoLabel.text = "Tous les Lundis à 19h00"
+        cell.showInfoLabel.text = "Tous les \(show.show_scheduledDate!.getDayName()) à \(show.show_scheduledDate!.getTimeDate())"
         cell.showNoteCosmosView.rating = show.show_note
         
         cell.backgroundColor = UIColor.clear

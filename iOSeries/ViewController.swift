@@ -48,11 +48,12 @@ class ViewController: ColorMatchTabsViewController {
     @IBAction func addButtonTapped(_ sender: Any) {
         UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: {
             self.searchView.frame.origin.y = 0
-            self.searchBackgroundView.frame.origin.y = 0
             self.autocompleteView.frame.origin.y = self.searchviewDefaultHeight / 2
             
             self.searchTextField.becomeFirstResponder()
-        }, completion: nil)
+        }, completion: { _ -> Void in
+            self.searchBackgroundView.frame.origin.y = 0
+        })
     }
     
 }
@@ -232,9 +233,10 @@ extension ViewController {
             self.searchTextField.resignFirstResponder()
             UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: {
                 self.searchView.frame.origin.y = -self.searchviewDefaultHeight
-                self.searchBackgroundView.frame.origin.y = -self.bounds.height
                 self.autocompleteView.frame.origin.y = -self.autocompleteView.frame.height
-            }, completion: nil)
+            }, completion: { _ -> Void in
+                self.searchBackgroundView.frame.origin.y = -self.bounds.height
+            })
         }
     }
 }
@@ -264,9 +266,10 @@ extension ViewController: UITextFieldDelegate {
                     self.searchTextField.text = ""
                     UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: {
                         self.searchView.frame.origin.y = -self.searchviewDefaultHeight
-                        self.searchBackgroundView.frame.origin.y = -self.bounds.height
                         self.autocompleteView.frame.origin.y = -self.autocompleteView.frame.height
-                    }, completion: nil)
+                    }, completion: { _ -> Void in
+                        self.searchBackgroundView.frame.origin.y = -self.bounds.height
+                    })
                     
                     // Present new view
                     self.present(vc, animated: true, completion: nil)

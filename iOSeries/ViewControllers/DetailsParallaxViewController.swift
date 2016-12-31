@@ -11,6 +11,7 @@ import Alamofire
 import SwiftyJSON
 import CoreData
 import HSDatePickerViewController
+import UserNotifications
 
 class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, KMScrollingHeaderViewDelegate/*, ParallaxDetailsViewDelegate, UIPickerViewDelegate*/ {
     
@@ -48,6 +49,8 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
     var selectedHeaderIndex: Int?
     var selectedItemIndex: Int?
     
+    var watchedEpisodes: [String] = [String]()
+    
     // MARK: - IBOutlets
     @IBOutlet var scrollingHeaderView: KMScrollingHeaderView!
     @IBOutlet weak var navBar: UIView!
@@ -60,6 +63,8 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
     // MARK: - "Default" Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.watchedEpisodes = self.retrieveWatchedEpisodes()
         
         self.navBar.alpha = 0
         self.statusBarHidden = true
@@ -291,6 +296,10 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
                     cell.accessoryType = .disclosureIndicator
                 }
                 
+                if self.isWatchedEpisode(episodeName: value) {
+                    cell.accessoryType = .checkmark
+                }
+                
                 break
             }
         }
@@ -379,6 +388,17 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
                 
                 self.navBar.alpha = 1
                 self.statusBarHidden = false
+            } else {
+                let cell = tableView.cellForRow(at: indexPath)
+                if self.isWatchedEpisode(episodeName: item.value) {
+                    cell?.accessoryType = .none
+                    self.removeFromWatchedEpisode(episodeName: item.value)
+                } else {
+                    cell?.accessoryType = .checkmark
+                    self.watchedEpisodes.append(item.value)
+                }
+                
+                self.saveWatchedEpisodes()
             }
         }
     }
@@ -518,6 +538,7 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
                                 // DELETE
                                 context.delete(cShow)
                                 self.unscheduleShow()
+                                self.removeAllWatchedEpisodes()
                             }
                             
                             break
@@ -550,10 +571,16 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
     
     func scheduleShow() {
         print("Schedule Show")
+        if let selectedDate = self.show!.show_scheduledDate {
+            let delegate = UIApplication.shared.delegate as? AppDelegate
+            delegate?.scheduleNotification(at: selectedDate, showName: self.show!.show_title, imageURL: self.show!.show_imageShowURL)
+        }
     }
     
     func unscheduleShow() {
         print("Unschedule Show")
+        let identifiers = ["Scheduled \(self.show!.show_title)", "\(self.show!.show_title)"]
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
     }
 }
 
@@ -638,5 +665,49 @@ extension DetailsParallaxViewController: HSDatePickerViewControllerDelegate {
         self.saveCurrentShowState()
         
         self.scrollingHeaderView.tableView.reloadData()
+    }
+}
+
+// Extension for personal methods
+extension DetailsParallaxViewController {
+    func retrieveWatchedEpisodes() -> [String] {
+        let ep = UserDefaults.standard.array(forKey: "\(self.id)")
+        if let eps: [String] = ep as? [String] {
+            return eps
+        }
+        
+        return [String]()
+    }
+    
+    func saveWatchedEpisodes() {
+        let def = UserDefaults.standard
+        def.set(self.watchedEpisodes, forKey: "\(self.id)")
+        def.synchronize()
+    }
+    
+    func isWatchedEpisode(episodeName: String) -> Bool {
+        if self.watchedEpisodes.count > 0 {
+            for ep in self.watchedEpisodes {
+                if ep == episodeName {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    func removeFromWatchedEpisode(episodeName: String) {
+        for i in 0...self.watchedEpisodes.count {
+            if self.watchedEpisodes[i] == episodeName {
+                self.watchedEpisodes.remove(at: i)
+                break
+            }
+        }
+    }
+    
+    func removeAllWatchedEpisodes() {
+        let def = UserDefaults.standard
+        def.removeObject(forKey: "\(self.id)")
+        def.synchronize()
     }
 }
