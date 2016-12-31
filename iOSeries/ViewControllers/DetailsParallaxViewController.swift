@@ -706,8 +706,8 @@ extension DetailsParallaxViewController {
     }
     
     func removeAllWatchedEpisodes() {
-        let def = UserDefaults.standard
-        def.removeObject(forKey: "\(self.id)")
-        def.synchronize()
+        let ud = UserDefaults.standard
+        ud.removeObject(forKey: "\(self.id)")
+        ud.synchronize()
     }
 }
