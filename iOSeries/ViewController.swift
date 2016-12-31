@@ -246,7 +246,7 @@ extension ViewController: UITextFieldDelegate {
         let  char = string.cString(using: String.Encoding.utf8)!
         let isBackSpace = strcmp(char, "\\b")
         
-        if (isBackSpace == -92) && (textField.text?.characters.count)! < 4 {
+        if (isBackSpace == -92) && (textField.text?.characters.count)! < 1 {
             self.results = []
             self.resultsInfo = [String: String]()
         }

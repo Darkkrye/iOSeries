@@ -472,7 +472,14 @@ class DetailsParallaxViewController: UIViewController, UITableViewDelegate, UITa
         ss.sort(by: { $0.season_number > $1.season_number })
         
         for season in ss {
-            self.cells.append(SwiftyAccordionCells.HeaderItem(value: "Saison \(season.season_number) - \(season.episodes.count) episodes"))
+            let startDate: String = self.getStringDateFromStringDate(date: season.episodes.first!.episode_date)
+            let endDate: String = self.getStringDateFromStringDate(date: season.episodes.last!.episode_date)
+            
+            if startDate == endDate || endDate == "0000"{
+                self.cells.append(SwiftyAccordionCells.HeaderItem(value: "Saison \(season.season_number) - \(season.episodes.count) episodes (\(startDate))"))
+            } else {
+                self.cells.append(SwiftyAccordionCells.HeaderItem(value: "Saison \(season.season_number) - \(season.episodes.count) episodes (\(startDate)-\(endDate))"))
+            }
             
             for episode in season.episodes {
                 self.cells.append(SwiftyAccordionCells.Item(value: "\(episode.episode_code) - \(episode.episode_title)"))
@@ -709,5 +716,21 @@ extension DetailsParallaxViewController {
         let ud = UserDefaults.standard
         ud.removeObject(forKey: "\(self.id)")
         ud.synchronize()
+    }
+    
+    func getStringDateFromStringDate(date: String) -> String {
+        var result = ""
+        var counter = 0
+        for c in date.characters {
+            if counter < 4 {
+                result.append(c)
+                counter += 1
+            } else {
+                counter = 0
+                break
+            }
+        }
+        
+        return result
     }
 }
